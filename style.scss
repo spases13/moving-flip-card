@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&family=Dancing+Script:wght@400;500;600;700&family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tajawal:wght@200;300;400;500;700;800;900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+// font-family: 'Cairo', sans-serif;
+// font-family: 'Dancing Script', cursive;
+// font-family: 'Noto Sans Mono', monospace;
+// font-family: 'Poppins', sans-serif;
+// font-family: 'PT Serif', serif;
+// font-family: 'Roboto', sans-serif;
+// font-family: 'Tajawal', sans-serif;
+// font-family: 'Ubuntu', sans-serif;
+$light-color: whitesmoke;
+$card-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+@mixin flexCenter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin wh-100 {
+	width: 100%;
+	height: 100%;
+}
+
+* {
+	margin: 0;
+}
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	z-index: 0;
+	@include flexCenter;
+}
+
+.frame {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 400px;
+	margin-top: -200px;
+	margin-left: -200px;
+	border-radius: 2px;
+	box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.center {
+	@include flexCenter;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	@include wh-100;
+}
+
+.flip-card {
+	position: relative;
+	width: 350px;
+	height: 250px;
+	perspective: 1000px;
+	border-radius: 7px;
+}
+
+.flip-card-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	transition: transform 0.8s;
+	transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+	transform: rotateX(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+	box-shadow: $card-shadow;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	border-radius: 7px;
+}
+
+.flip-card-front {
+	background: url('https://i.ibb.co/jgpXMRF/small-bg.png') center repeat-x;
+	background-size: auto 100%;
+	background-position: 0%;
+	animation: move-bg-front 190000000s linear infinite normal;
+	position: absolute;
+}
+
+.flip-card-back {
+	background: url('https://i.ibb.co/q1zr0zb/night-bg.png') center repeat-x;
+	background-size: auto 100%;
+	background-position: -9999999999%;
+	animation: move-bg-back 190000000s linear infinite reverse;
+	transform: rotateX(180deg);
+}
+
+.rider {
+	animation: move-rider 0.2s linear infinite alternate;
+	position: absolute;
+	bottom: 1%;
+	left: 10%;
+	height: 73px;
+	width: 106px;
+}
+
+.van {
+	animation: move-van 0.5s linear infinite alternate;
+	position: absolute;
+	bottom: 2%;
+	right: 10%;
+	height: 50px;
+	width: 114px;
+	transform: rotateY(180deg);
+	z-index: 10;
+	&light {
+		bottom: 6px;
+		left: 99px;
+		-webkit-transform: rotate(-18deg);
+		transform: rotate(-11deg);
+		z-index: 9;
+		display: inline-block;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 15px 48px 0 78px;
+		border-radius: 38%;
+		border-color: #fffd86d3 transparent transparent transparent;
+		position: absolute;
+	}
+}
+
+button {
+	position: absolute;
+	border: none;
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	background-color: whitesmoke;
+	transform: scale(1);
+	z-index: 150;
+	margin: 1rem 2rem;
+	right: 0;
+	border: 1px solid #e2e2e2;
+	&:active {
+		transform: scale(1.1);
+	}
+}
+
+footer {
+	z-index: 15000;
+	transform: translate(-120px, 340px);
+	svg#yassine {
+		transform: scale(0.2);
+		animation: color-loop 8s ease infinite alternate;
+	}
+}
+
+@keyframes move-bg-front {
+	to {
+		background-position: 9999999999%;
+	}
+}
+
+@keyframes move-bg-back {
+	to {
+		background-position: 0;
+	}
+}
+
+@keyframes move-rider {
+	to {
+		height: calc(73px - 4px);
+		width: 106px;
+		bottom: 1%;
+	}
+}
+
+@keyframes move-van {
+	to {
+		height: calc(50px - 4px);
+		width: 114px;
+		bottom: 2%;
+	}
+}
+
+@keyframes color-loop {
+	0% {
+		stroke: red;
+	}
+
+	33% {
+		stroke: rgb(67, 197, 67);
+	}
+
+	66% {
+		stroke: blue;
+	}
+
+	100% {
+		stroke: purple;
+	}
+}
